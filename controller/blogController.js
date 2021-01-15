@@ -37,7 +37,7 @@ exports.deleteBlog=(req,res)=>{
 }
 exports.getAllBlog=(req,res)=>{
     blog.find({}).then(blogs=>{
-        admin.findOne({userId:blogs.userId}).then(userDetails=>{
+        admin.findOne({_id:blogs.userId}).then(userDetails=>{
             console.log(userDetails)
             res.render('index',{blogs:blogs,userDetails:userDetails})
         })
@@ -46,9 +46,14 @@ exports.getAllBlog=(req,res)=>{
     })
 }
 exports.getBlogById=(req,res)=>{
+   
     blog.findOne({blogId:req.params.id}).sort({_id:-1}).then(blogs=>{
-        admin.findOne({userId:blogs.userId}).then(userDetails=>{
-            res.render('post',{blog:blogs,userDetails:userDetails})
+       // console.log(blogs.userId)
+        admin.findOne({_id:blogs.userId}).then(userDetails=>{
+          //  console.log(userDetails)
+            blog.find({}).then(blogsRec=>{
+                res.render('post',{blog:blogs,userDetails:userDetails,moreBlogs:blogsRec})
+            })
         })
     }).catch(err=>{
         res.send(err)
