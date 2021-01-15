@@ -13,6 +13,6 @@ router.put('/editBlog/:id',verifyAdmin,blogController.editBlog,err=>{
 router.delete('/deleteBlog/:id',verifyAdmin,blogController.deleteBlog,err=>{
     console.log('error while signup user')
   })
-  router.get('/getAllBlog',blogController.getAllBlog)
-  router.get('/getBlogById/:id',blogController.getBlogById)
+  router.get('/',blogController.getAllBlog)
+  router.get('/:id',blogController.getBlogById)
 module.exports=router

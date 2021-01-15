@@ -8,7 +8,9 @@ const bodyParser = require('body-parser');
 var authRouter = require('./routes/Auth');
 var blogRouter = require('./routes/blog');
 
-
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(express.static(path.join(__dirname, 'public')));
 mongoose.connect(process.env.MONGO_URL,{
   useNewUrlParser:true,
   useUnifiedTopology:true
@@ -30,9 +32,7 @@ app.use(express.json())
 
 ///Router
 /// Server check
-app.get('/', function(req, res, next) {
-  res.send('Welcome to Blog Server');
-});
+
 // Auth Routers
 app.use('/',authRouter)
 app.use('/',blogRouter)

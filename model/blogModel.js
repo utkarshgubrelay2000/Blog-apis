@@ -12,6 +12,13 @@ var Schema=new mongoose.Schema({
         required:true
     },blogId:{
         type:String
+    },date:{
+        type:String
+    },time:{type:String}
+    ,shortContent:{
+        type:String
+    },userId:{
+        type:String
     }
 })
 const Post= mongoose.model("blogs", Schema);
