@@ -17,6 +17,7 @@ let blogId=heading.replace(/\s/g,"-")
       res.send(err)
    })
 }
+exports.ge
 exports.editBlog=(req,res)=>{
     const {content,thumbImage,heading}=req.body
     let blogId=heading.replace(/\s/g,"-")
@@ -37,7 +38,7 @@ exports.deleteBlog=(req,res)=>{
 }
 exports.getAllBlog=(req,res)=>{
     blog.find({}).then(blogs=>{
-        admin.findOne({_id:blogs.userId}).then(userDetails=>{
+        admin.findOne({_id:blogs[0].userId}).then(userDetails=>{
             console.log(userDetails)
             res.render('index',{blogs:blogs,userDetails:userDetails})
         })
