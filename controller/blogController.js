@@ -14,7 +14,7 @@ let blogId=heading.replace(/\s/g,"-")
    newBog.save().then(saved=>{
        res.json('success')
    }).catch(err=>{
-      res.send(err)
+      res.send('4040 not found')
    })
 }
 exports.ge
@@ -25,7 +25,7 @@ exports.editBlog=(req,res)=>{
     , blogId: blogId}).then(saved=>{
         res.json('Updated')
     }).catch(err=>{
-       res.send(err)
+       res.send('4040 not found')
     })
 }
 exports.deleteBlog=(req,res)=>{
@@ -33,7 +33,7 @@ exports.deleteBlog=(req,res)=>{
    blog.findByIdAndDelete(req.params.id).then(success=>{
         res.json('Deleetd')
     }).catch(err=>{
-       res.send(err)
+       res.send('4040 not found')
     })
 }
 exports.getAllBlog=(req,res)=>{
@@ -43,7 +43,7 @@ exports.getAllBlog=(req,res)=>{
             res.render('index',{blogs:blogs,userDetails:userDetails})
         })
     }).catch(err=>{
-        res.send(err)
+        res.send('4040 not found')
     })
 }
 exports.getBlogById=(req,res)=>{
@@ -57,6 +57,6 @@ exports.getBlogById=(req,res)=>{
             })
         })
     }).catch(err=>{
-        res.send(err)
+        res.send('4040 not found')
     })
 }
