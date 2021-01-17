@@ -4,10 +4,7 @@
     <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/inline/ckeditor.js"></script>
 </head>
 <body>
-    <h1>Inline editor</h1>
-    <div id="editor">
-        <p>This is some sample content.</p>
-    </div>
+  <div><%- content %></div>
     <script>
         InlineEditor
             .create( document.querySelector( '#editor' ) )

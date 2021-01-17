@@ -4,17 +4,19 @@ const blog=require('../model/blogModel');
 
 exports.postBlog=(req,res)=>{
     const {content,thumbImage,heading,shortContent,userId}=req.body
+    console.log(req.body)
+   // res.render('author',{content:content})
     let newdate= new Date()
 let blogId=heading.replace(/\s/g,"-")
-//console.log(newdate.toDateString())
+// //console.log(newdate.toDateString())
    let newBog=new blog({
-       heading:heading,content:content,thumbImage:thumbImage, blogId: blogId,
+       heading:heading,content:content,thumbImage:"url", blogId: blogId,
        date:newdate.toDateString(),time:newdate.toLocaleTimeString(),
        shortContent:shortContent,userId:userId
    })
  //  console.log(shortContent)
    newBog.save().then(saved=>{
-       res.json('success')
+      console.log('succces')
    }).catch(err=>{
       res.send('4040 not found')
    })

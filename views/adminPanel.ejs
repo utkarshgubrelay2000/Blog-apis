@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 <!-- Custom styles for this template -->
-   <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/inline/ckeditor.js"></script>
+   <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
 <link href="/assets/css/mediumish.css" rel="stylesheet">
 </head>
 <body>
@@ -57,12 +57,26 @@
 	<div class="mainheading">
 		<h1 class="sitetitle">Blog Correctlens</h1>
 	</div>
-<div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Add Blog
-</button>
-
+<div class='container'>
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Add Blog
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body text-center">
+	
+		  <input name='heading' id='heading' placeholder='Title' >  <br>
+		  <input name='shortContent' id="shortContent" placeholder='Short Description of your blog' >  <br>
+		  <input name='thumbImage' type="file"  placeholder='thumbnail image' >   <br>  
+		  <div >
+			  <p>  Write Blog content here</p>
+			  <input id="editor" name='content' style="width: 100%;"> 
+			</div> <br>
+			<button onclick="myfunction()">Submit </button>
+		</form>
+	</div>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -74,7 +88,7 @@
         </button>
       </div>
       <div class="modal-body">
-        ...
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -91,6 +105,37 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+		
+		let editor;
+
+ClassicEditor
+    .create( document.querySelector( '#editor' ) )
+    .then( newEditor => {
+        editor = newEditor;
+    } )
+    .catch( error => {
+        console.error( error );
+    } );
+		function myfunction(){
+		let content = editor.getData()
+		let heading=document.getElementById('heading').value;
+		console.log(heading)
+		let shortContent=document.getElementById('shortContent').value;
+		fetch('/postBlog', {
+			headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify({content: content, heading:heading,shortContent:shortContent})
+  }).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    console.log('done')
+  });
+	}
+    </script>
 
 </body>
 </html>
