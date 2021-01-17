@@ -1,11 +1,15 @@
 const admin = require('../model/adminModel');
 const blog=require('../model/blogModel');
-
-
-exports.postBlog=(req,res)=>{
+const Axios = require("axios")
+var FormData = require('form-data');
+exports.postBlog= async (req,res)=>{
     const {content,thumbImage,heading,shortContent,userId}=req.body
-    console.log(req.body)
+    console.log(req.body.thumbImage)
    // res.render('author',{content:content})
+   
+    
+  
+
     let newdate= new Date()
 let blogId=heading.replace(/\s/g,"-")
 // //console.log(newdate.toDateString())
@@ -14,11 +18,11 @@ let blogId=heading.replace(/\s/g,"-")
        date:newdate.toDateString(),time:newdate.toLocaleTimeString(),
        shortContent:shortContent,userId:userId
    })
- //  console.log(shortContent)
    newBog.save().then(saved=>{
-      console.log('succces')
+       console.log(shortContent)
+      res.redirect('/api/admin/secret')
    }).catch(err=>{
-      res.send('4040 not found')
+      res.send('404 not found')
    })
 }
 exports.adminpanel=(req,res)=>{

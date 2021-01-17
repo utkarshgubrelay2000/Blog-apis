@@ -7,7 +7,7 @@ router.get('/postBlog',(req,res)=>{
   res.render('author')
 })
 router.get('/api/admin/secret',verifyAdmin,blogController.adminpanel)
-router.post('/postBlog',verifyAdmin,blogController.postBlog,err=>{
+router.post('/postBlog/:token',verifyAdmin,blogController.postBlog,err=>{
   console.log('error while signup user')
 })
 router.put('/editBlog/:id',verifyAdmin,blogController.editBlog,err=>{

@@ -1,12 +1,9 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../model/adminModel");
 const md5 = require("md5")
-if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-}
+
 module.exports=(req,res,next)=>{
-  let authorization=localStorage.getItem('token')
+  let authorization=req.params.token
 if(authorization){
 jwt.verify(authorization, process.env.JWT_SECRET, (err, payload) => {
     if (err || payload === undefined) {
@@ -21,7 +18,7 @@ else{
            // console.log(md5UserId,md5(user._id))
           if (md5(user._id) === md5UserId) {
             req.body.userId = user._id;
-            res.render('adminPanel')
+           
               next();
           }
         });
