@@ -7,7 +7,6 @@ require("dotenv").config({path:"./config/config.env"});
 const bodyParser = require('body-parser');
 var authRouter = require('./routes/Auth');
 var blogRouter = require('./routes/blog');
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
@@ -17,13 +16,15 @@ mongoose.connect(process.env.MONGO_URL,{
 });
 app.use(express.static(path.join(__dirname, 'public')));
 mongoose.connection.on("connected", () => {
-console.log("connected to mongo yeah !");
+  console.log("connected to mongo yeah !");
 });
 mongoose.connection.on("error",()=>{
   console.log("error connecting to mongo " ,)
 }).catch(err =>{
-console.log("error is",err)
+  console.log("error is",err)
 })
+
+
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));

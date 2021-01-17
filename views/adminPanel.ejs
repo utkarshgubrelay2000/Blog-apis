@@ -68,7 +68,11 @@
 	
 		  <input name='heading' id='heading' placeholder='Title' >  <br>
 		  <input name='shortContent' id="shortContent" placeholder='Short Description of your blog' >  <br>
-		  <input name='thumbImage' id='thumbImage' type="file"  placeholder='thumbnail image' >   <br>  
+		
+		  
+			<input class="btn btn-outline-success" type="file" name="avatar"
+			 id='fileinput' />
+		
 		  <div >
 			  <p>  Write Blog content here</p>
 			  <input id="editor" name='content' style="width: 100%;"> 
@@ -120,8 +124,8 @@
 											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
 										</svg>
 									</button>
-									  <button class=" btn btn-outline-danger">
-
+									  <button class=" btn btn-outline-danger"
+									   onclick="deleteBlog('<%= element.blogId%>')">
 										  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
 											<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
 										</svg>
@@ -146,6 +150,9 @@
 <script src="/assets/js/ie10-viewport-bug-workaround.js"></script>
 <script>
 	let editor;
+	const input = document.getElementById('fileinput');
+
+	const onSelectFile = () => upload(input.files[0]);
 localStorage.setItem('token',"<%=token %>")
 ClassicEditor
     .create( document.querySelector( '#editor' ) )
@@ -155,13 +162,35 @@ ClassicEditor
     .catch( error => {
         console.error( error );
     } );
-		function myfunction(){
+	
+	
+	document.querySelector('#fileinput').addEventListener('change', event =>{
+		const files = event.target.files
+  const formData = new FormData()
+  formData.append('myFile', files[0])
+console.log(formData)
+  fetch('/uploadImage', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+  })
+  .catch(error => {
+    console.error(error)
+  })
+
+	})
+	
+	function myfunction(){
+	
 		let content = editor.getData()
 		let heading=document.getElementById('heading').value;
 		let thumbnail=document.getElementById('thumbImage').value;
 		console.log(heading,thumbnail)
 		let shortContent=document.getElementById('shortContent').value;
-		fetch('/postBlog/'+localStorage.getItem('token'), {
+		fetch('/postBlog', {
 			headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -182,6 +211,21 @@ function logout(){
 if(!localStorage.getItem('token')){
 	window.location.href='/'
 //	console.log('hello')
+}
+
+function deleteBlog(id){
+	console.log(id)
+	fetch('/deleteBlog/'+id+"/" +localStorage.getItem('token'), {
+			headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: "Delete",
+}).then(function(response) {
+    return response.json();
+  }).then(function(data) {
+    console.log('done')
+  });
 }
     </script>
 

@@ -1,6 +1,6 @@
 const admin = require('../model/adminModel');
 const blog=require('../model/blogModel');
-const Axios = require("axios")
+
 exports.postBlog= async (req,res)=>{
     const {content,thumbImage,heading,shortContent,userId}=req.body
     console.log(req.body.thumbImage)
@@ -47,9 +47,9 @@ exports.editBlog=(req,res)=>{
     })
 }
 exports.deleteBlog=(req,res)=>{
-  
-   blog.findByIdAndDelete(req.params.id).then(success=>{
-        res.json('Deleetd')
+console.log('done',req.params)
+   blog.findOneAndDelete({blogId:req.params.id}).then(success=>{
+       res.json('success')
     }).catch(err=>{
        res.send('4040 not found')
     })
@@ -77,4 +77,7 @@ exports.getBlogById=(req,res)=>{
     }).catch(err=>{
         res.send('4040 not found')
     })
+}
+exports.uploadImage=(req,res)=>{
+res.json('Success')
 }
