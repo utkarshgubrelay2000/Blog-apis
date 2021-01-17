@@ -16,6 +16,39 @@
 <link href="assets/css/mediumish.css" rel="stylesheet">
 </head>
 <body>
+<!--  Modal Login-->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Login as Admin </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  method="POST" action="/signin" >
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Email </label>
+            <input type="text" class="form-control" name='email' id="recipient-name">
+		</div>
+		<div class="form-group">
+			<label for="message-text" class="col-form-label">Password</label>
+			<input type="text" class="form-control" name='password' id="recipient-name">
+          </div>
+		  <button type="submit" class="btn btn-danger">Send message</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <!-- Begin Nav
 ================================================== -->
@@ -29,23 +62,24 @@
 	<img src="assets/img/logo.png" alt="logo">
 	</a>
 	<!-- End Logo -->
-	<!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav ml-auto">
-			<li class="nav-item active">
-			<a class="nav-link" href="index.html">Stories <span class="sr-only">(current)</span></a>
-			</li>
+			
 			<li class="nav-item">
-			<a class="nav-link" href="post.html">Post</a>
+			<a class="nav-link"  class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+			 data-whatever="@mdo" href="/#login">
+			 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+</svg>
+			</a>
 			</li>
-			<li class="nav-item">
-			<a class="nav-link" href="author.html">Author</a>
-			</li>
+			
 		</ul>
-		<form class="form-inline my-2 my-lg-0">
-			<input class="form-control mr-sm-2" type="text" placeholder="Search">
-			<span class="search-icon"><svg class="svgIcon-use" width="25" height="25" viewbox="0 0 25 25"><path d="M20.067 18.933l-4.157-4.157a6 6 0 1 0-.884.884l4.157 4.157a.624.624 0 1 0 .884-.884zM6.5 11c0-2.62 2.13-4.75 4.75-4.75S16 8.38 16 11s-2.13 4.75-4.75 4.75S6.5 13.62 6.5 11z"></path></svg></span>
-		</form>
-	</div> -->
+	
+	</div> 
+	
+
 </div>
 </nav>
 <!-- End Nav
@@ -137,6 +171,12 @@
     ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="assets/js/jquery.min.js"></script>
+
+
+
+<script>
+
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
