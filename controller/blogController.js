@@ -1,7 +1,6 @@
 const admin = require('../model/adminModel');
 const blog=require('../model/blogModel');
 const Axios = require("axios")
-var FormData = require('form-data');
 exports.postBlog= async (req,res)=>{
     const {content,thumbImage,heading,shortContent,userId}=req.body
     console.log(req.body.thumbImage)
@@ -14,7 +13,7 @@ exports.postBlog= async (req,res)=>{
 let blogId=heading.replace(/\s/g,"-")
 // //console.log(newdate.toDateString())
    let newBog=new blog({
-       heading:heading,content:content,thumbImage:"url", blogId: blogId,
+       heading:heading,content:content,thumbImage:"https://assets.ajio.com/medias/sys_master/root/20200924/9QSe/5f6b9823f997dd8c834bc866/john_players_navy_blue_checked_single-breasted_blazer_with_notched_lapel.jpg", blogId: blogId,
        date:newdate.toDateString(),time:newdate.toLocaleTimeString(),
        shortContent:shortContent,userId:userId
    })
@@ -26,7 +25,16 @@ let blogId=heading.replace(/\s/g,"-")
    })
 }
 exports.adminpanel=(req,res)=>{
-    res.render('adminPanel')
+
+    blog.find({}).then(blogs=>{
+        admin.findOne({_id:blogs[0].userId}).then(userDetails=>{
+           // console.log(userDetails)
+            res.render('adminPanel',{blogs:blogs,userDetails:userDetails})
+
+        })
+    }).catch(err=>{
+        res.send('4040 not found')
+    })
 }
 exports.editBlog=(req,res)=>{
     const {content,thumbImage,heading}=req.body

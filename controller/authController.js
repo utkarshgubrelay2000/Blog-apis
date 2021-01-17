@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 var validate = require("validate.js");
 const adminModel=require('../model/adminModel')
+const blog=require('../model/blogModel')
+
 
 /////////------ User SignUp ----////////////////
 
@@ -99,9 +101,17 @@ exports.Signin = (req, res) => {
                 { secretId: userId },
                 process.env.JWT_SECRET
               );
-           
+              blog.find({}).then(blogs=>{
+                adminModel.find({}).then(userDetails=>{
+                   // console.log(userDetails)
+                    res.render('adminPanel',{blogs:blogs,userDetails:userDetails[0],token:token})
+                })
+            }).catch(err=>{
+              console.log(err)
+                res.send('4040 not found')
+            })
             
-              res.render('adminPanel',{token:token})
+  
             } else {
               res.status(400).json({ error: "Invalid password" });
             }
