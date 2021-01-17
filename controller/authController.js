@@ -2,7 +2,10 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 var validate = require("validate.js");
 const adminModel=require('../model/adminModel')
-
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
 
 /////////------ User SignUp ----////////////////
 
@@ -100,12 +103,9 @@ exports.Signin = (req, res) => {
                 { secretId: userId },
                 process.env.JWT_SECRET
               );
-              res.json({
-                message: "SignSuccess",
-                token: token,
-                email: user.email,
-                name: user.name,
-              });
+           
+              localStorage.setItem("token", token)
+              res.redirect('/api/admin/secret')
             } else {
               res.status(400).json({ error: "Invalid password" });
             }
@@ -115,9 +115,13 @@ exports.Signin = (req, res) => {
           });
       } else {
         res
-          .status(404)
-          .json({ error: "User not found of " + email + " address" });
+          .send("you Are Not Admin")
       }
     });
   }
 };
+exports.logout=(req,res)=>{
+  localStorage.removeItem('token')
+
+  res.redirect('/')
+}
