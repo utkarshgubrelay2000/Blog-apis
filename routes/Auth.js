@@ -8,5 +8,5 @@ router.post('/signup',adminAuthentication.Signup,err=>{
 router.post('/signin',adminAuthentication.Signin,err=>{
   console.log('error while signup user')
 })
-
+router.get('/logout',adminAuthentication.logout)
 module.exports=router
