@@ -1,5 +1,7 @@
 const admin = require('../model/adminModel');
 const blog=require('../model/blogModel');
+
+
 exports.postBlog=(req,res)=>{
     const {content,thumbImage,heading,shortContent,userId}=req.body
     let newdate= new Date()
@@ -17,7 +19,9 @@ let blogId=heading.replace(/\s/g,"-")
       res.send('4040 not found')
    })
 }
-exports.ge
+exports.adminpanel=(req,res)=>{
+    res.render('adminPanel')
+}
 exports.editBlog=(req,res)=>{
     const {content,thumbImage,heading}=req.body
     let blogId=heading.replace(/\s/g,"-")
@@ -39,7 +43,7 @@ exports.deleteBlog=(req,res)=>{
 exports.getAllBlog=(req,res)=>{
     blog.find({}).then(blogs=>{
         admin.findOne({_id:blogs[0].userId}).then(userDetails=>{
-            console.log(userDetails)
+           // console.log(userDetails)
             res.render('index',{blogs:blogs,userDetails:userDetails})
         })
     }).catch(err=>{
