@@ -39,13 +39,13 @@ router.get('/postBlog',(req,res)=>{
 
 
 router.get('/api/admin/secret',verifyAdmin,blogController.adminpanel)
-router.post('/postBlog/:token',verifyAdmin,blogController.postBlog,err=>{
+router.post('/postBlog',blogController.postBlog,err=>{
   console.log('error while signup user')
 })
-router.put('/editBlog/:id',verifyAdmin,blogController.editBlog,err=>{
+router.put('/editBlog/:id',blogController.editBlog,err=>{
   console.log('error while signup user')
 })
-router.delete('/deleteBlog/:id/:token',verifyAdmin,blogController.deleteBlog,err=>{
+router.delete('/deleteBlog/:id',blogController.deleteBlog,err=>{
     console.log('error while signup user')
   })
   router.get('/',blogController.getAllBlog)

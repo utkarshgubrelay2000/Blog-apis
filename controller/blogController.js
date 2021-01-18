@@ -6,20 +6,18 @@ exports.postBlog= async (req,res)=>{
     console.log(req.body.thumbImage)
    // res.render('author',{content:content})
    
-    
-  
-
     let newdate= new Date()
 let blogId=heading.replace(/\s/g,"-")
 // //console.log(newdate.toDateString())
    let newBog=new blog({
-       heading:heading,content:content,thumbImage:"https://assets.ajio.com/medias/sys_master/root/20200924/9QSe/5f6b9823f997dd8c834bc866/john_players_navy_blue_checked_single-breasted_blazer_with_notched_lapel.jpg", blogId: blogId,
+       heading:heading,content:content,thumbImage:thumbImage, blogId: blogId,
        date:newdate.toDateString(),time:newdate.toLocaleTimeString(),
        shortContent:shortContent,userId:userId
    })
    newBog.save().then(saved=>{
        console.log(shortContent)
-      res.redirect('/api/admin/secret')
+       res.json('success')
+    //  res.redirect('/api/admin/secret')
    }).catch(err=>{
       res.send('404 not found')
    })
@@ -43,7 +41,7 @@ exports.editBlog=(req,res)=>{
     , blogId: blogId}).then(saved=>{
         res.json('Updated')
     }).catch(err=>{
-       res.send('4040 not found')
+       res.status(404).json('4040 not found')
     })
 }
 exports.deleteBlog=(req,res)=>{
@@ -51,7 +49,7 @@ console.log('done',req.params)
    blog.findOneAndDelete({blogId:req.params.id}).then(success=>{
        res.json('success')
     }).catch(err=>{
-       res.send('4040 not found')
+        res.status(404).json('4040 not found')
     })
 }
 exports.getAllBlog=(req,res)=>{
