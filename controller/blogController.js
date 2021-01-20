@@ -54,9 +54,9 @@ console.log('done',req.params)
 }
 exports.getAllBlog=(req,res)=>{
     blog.find({}).then(blogs=>{
-        admin.findOne({_id:blogs[0].userId}).then(userDetails=>{
+        admin.find({}).then(userDetails=>{
            // console.log(userDetails)
-            res.render('index',{blogs:blogs,userDetails:userDetails})
+            res.render('index',{blogs:blogs,userDetails:userDetails[0]})
         })
     }).catch(err=>{
         res.send('4040 not found')
@@ -66,10 +66,10 @@ exports.getBlogById=(req,res)=>{
    
     blog.findOne({blogId:req.params.id}).sort({_id:-1}).then(blogs=>{
        // console.log(blogs.userId)
-        admin.findOne({_id:blogs.userId}).then(userDetails=>{
+        admin.find().then(userDetails=>{
           //  console.log(userDetails)
             blog.find({}).then(blogsRec=>{
-                res.render('post',{blog:blogs,userDetails:userDetails,moreBlogs:blogsRec})
+                res.render('post',{blog:blogs,userDetails:userDetails[0],moreBlogs:blogsRec})
             })
         })
     }).catch(err=>{
