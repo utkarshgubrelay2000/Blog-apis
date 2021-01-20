@@ -68,7 +68,7 @@ exports.getBlogById=(req,res)=>{
        // console.log(blogs.userId)
         admin.find().then(userDetails=>{
           //  console.log(userDetails)
-            blog.find({}).then(blogsRec=>{
+            blog.find({}).sort({_id:-1}).then(blogsRec=>{
                 res.render('post',{blog:blogs,userDetails:userDetails[0],moreBlogs:blogsRec})
             })
         })
