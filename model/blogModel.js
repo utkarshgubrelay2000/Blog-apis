@@ -21,5 +21,5 @@ var Schema=new mongoose.Schema({
         type:String
     }
 })
-const Post= mongoose.model("blogs", Schema);
+const Post= mongoose.model("blogs-apis", Schema);
 module.exports =Post;
